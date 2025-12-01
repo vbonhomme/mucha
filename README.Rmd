@@ -64,9 +64,9 @@ raster_summary(l)
 p(l)
 ```
 
-Now calculate richness at three different scales.
+Now calculate richness at three different scales. We use the cpp version of contagion to speed up calculations.
 ```{r}
-l_mhm <- MHM(l, window=c(3, 13, 23, 33), fun=richness)
+l_mhm <- MHM(l, window=c(3, 13, 23, 33), fun=contagion_cppr)
 ```
 
 Let's plot all monoscale maps:
@@ -83,11 +83,19 @@ ms_profile(l_mhm)
 
 CMP works pretty much the same but with two landscapes.
 
-The vignette proposes a much detailed deep into MHM and CMP. You can have a look to it with:
+```{r}
+l2 <- import_example("l2.tif") %>% raster_resample(0.2)
+l12_cmp <- CMP(l, l2, fun=dist_euclidean_cppr)
 
-```{r, eval=FALSE}
-vignette("intro", "mucha")
+# plots now
+l12_cmp %>% p()
+l12_cmp %>% ms_profile()
+l12_cmp %>% app(mean) %>% p()
+
 ```
+
+
+
 
 An html version of this vignette and of the doc lives [https://vbonhomme.github.io/mucha/](https://vbonhomme.github.io/mucha/)
 Feel free to report bugs and suggest features on the github repo [https://github.com/vbonhomme/mucha](https://github.com/vbonhomme/mucha)
