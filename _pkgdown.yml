@@ -1,0 +1,59 @@
+destination: docs
+url: https://vbonhomme.github.io/mucha/
+
+template:
+  bootstrap: 5
+  bootswatch: simplex
+
+reference:
+- title: Multiscale operations
+  navbar: ~
+  contents:
+  - MHM
+  - CMP
+
+- title: Helper functions
+  navbar: ~
+  contents:
+  - kernel
+  - window
+  - odd_floor
+
+- title: MHM statistics for single landscapes
+  navbar: ~
+  contents:
+  - mhm_funs
+
+- title: CMP statistics for pairs of landscapes
+  navbar: ~
+  contents:
+  - cmp_funs
+
+- title: Summarize and visualize MHM/CMP Results
+  navbar: ~
+  contents:
+  - p
+  - ms_profile
+  - ms_profile_df
+
+- title: Import/Export landscapes
+  navbar: ~
+  contents:
+  - import_example
+  - import_raster
+  - import_txt
+  - export_raster
+  - export_txt
+
+- title: Simulate landscapes
+  navbar: ~
+  contents:
+  - simulate
+
+- title: Raster and other helpers
+  navbar: ~
+  contents:
+  - raster_helpers
+  - se
+  - gmean
+

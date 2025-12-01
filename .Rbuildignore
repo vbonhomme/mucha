@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^vignettes/articles$
+^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^LICENSE\.md$
+^sticker.R$
+^sticker_img.png$
+^ignore$
+^\.github$

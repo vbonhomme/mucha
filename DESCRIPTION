@@ -1,0 +1,36 @@
+Package: mucha
+Type: Package
+Title: MUltiscale Comparison and Heterogeneity Analyses
+Version: 0.1.0
+Authors@R: c(
+  person("Vincent", "Bonhomme", email = "bonhomme.vincent@gmail.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2742-6349")),
+  person("Cedric", "Gaucherel", 
+    role = c("aut"), comment = c(ORCID = "0000-0002-4521-8914")))
+Maintainer: Vincent Bonhomme <bonhomme.vincent@gmail.com>
+Description: This package ports MHM and CMP approaches 
+    to R since the initial Java programs are no longer maintained. They are essentially thin wrappers 
+    on top of terra package functions and stick to original Gaucherel's implementation while 
+    allowing easy customization, inspection and tweaking at every step. Both MHM and CMP propose a methodology to capture the local and scaling variations 
+    of landscapes, or anything that can be turned into rasters. MHM works on a single raster, while CMP 
+    works on a pair of rasters. Both use moving windows and summary functions to end up with several rasters, 
+    one per window size, that are eventually combined, using a custom function, 
+    and summarized using a scaling profile plot. 
+License: GPL (>= 3)
+URL: https://github.com/vbonhomme/mucha, https://vbonhomme.github.io/mucha/
+BugReports: https://github.com/vbonhomme/mucha/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.1
+Config/Needs/website: rmarkdown
+Imports: 
+    magrittr,
+    purrr,
+    Rcpp,
+    terra,
+    utils
+Roxygen: list(markdown = TRUE)
+Depends: 
+    R (>= 2.10)
+LinkingTo: 
+    Rcpp
