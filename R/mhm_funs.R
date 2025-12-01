@@ -11,14 +11,19 @@
 #'
 #' @details
 #'
+#' For now on, some function have a cpp counterpart. The R implementation
+#' will likely be removed soon. So far we maintain both for the sake of testing.
+#' When a `_cppr` version exists, use it!
+#'
 #' * `richness` simply returns the total number of unique classes
 #'  (only makes sense on categorical landscapes)
-#' * `simpson` is the Simpson's diversity index
-#' * `shannon` is the Shannon's diversity index
-#' * `shannon_evenness` is the Shannon's evenness index
-#' * `kappa_index` is Kappa index
+#' * `simpson/simpson_cppr` is the Simpson's diversity index
+#' * `shannon`/`shannon_cppr` is the Shannon's diversity index
+#' * `shannon/shannon_cppr` optimized version in cpp
+#' * `shannon_evenness/shannon_evenness_cppr` is the Shannon's evenness index
+#' * `kappa_index/kappa_index_cppr` is Kappa index
 #' * `student_p` is the p value from a Student's test
-#' * `contagion` is the contagion index (Riitters, 1996) and
+#' * `contagion/contagion_cppr` is the contagion index (Riitters, 1996) and
 #' also from MHM paper (only makes sense on categorical landscapes)
 #'
 #' @examples
@@ -27,10 +32,15 @@
 #' table(x)
 #' x %>% richness()
 #' x %>% simpson()
+#' x %>% simpson_cppr()
 #' x %>% shannon()
+#' x %>% shannon_cppr()
 #' x %>% shannon_evenness()
+#' x %>% shannon_evenness_cppr()
 #' x %>% kappa_index()
+#' x %>% kappa_index_cppr()
 #' x %>% contagion()
+#' x %>% contagion_cppr(()
 #' @name mhm_funs
 #' @export
 richness <- function(x, ...){
@@ -287,7 +297,7 @@ simpson_cppr <- function(x, ...) {
 
 #' @rdname mhm_funs
 #' @export
-shannon_cpp <- function(x, ...) {
+shannon_cppr <- function(x, ...) {
   shannon_cpp(x)
 }
 

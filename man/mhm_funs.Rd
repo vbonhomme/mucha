@@ -12,7 +12,7 @@
 \alias{shannon_evenness_cppr}
 \alias{kappa_index_cppr}
 \alias{simpson_cppr}
-\alias{shannon_cpp}
+\alias{shannon_cppr}
 \title{Summary metrics on a single raster}
 \usage{
 richness(x, ...)
@@ -35,7 +35,7 @@ kappa_index_cppr(x, ...)
 
 simpson_cppr(x, ...)
 
-shannon_cpp(x, ...)
+shannon_cppr(x, ...)
 }
 \arguments{
 \item{x}{a fraction of a \code{SpatRaster} raster}
@@ -51,15 +51,19 @@ Summary functions that return a scalar when passed with a portion of raster.
 Typically passed to \link{MHM}.
 }
 \details{
+For now on, some function have a cpp counterpart. The R implementation
+will likely be removed soon. So far we maintain both for the sake of testing.
+When a \verb{_cppr} version exists, use it!
 \itemize{
 \item \code{richness} simply returns the total number of unique classes
 (only makes sense on categorical landscapes)
-\item \code{simpson} is the Simpson's diversity index
-\item \code{shannon} is the Shannon's diversity index
-\item \code{shannon_evenness} is the Shannon's evenness index
-\item \code{kappa_index} is Kappa index
+\item \code{simpson/simpson_cppr} is the Simpson's diversity index
+\item \code{shannon}/\code{shannon_cppr} is the Shannon's diversity index
+\item \code{shannon/shannon_cppr} optimized version in cpp
+\item \code{shannon_evenness/shannon_evenness_cppr} is the Shannon's evenness index
+\item \code{kappa_index/kappa_index_cppr} is Kappa index
 \item \code{student_p} is the p value from a Student's test
-\item \code{contagion} is the contagion index (Riitters, 1996) and
+\item \code{contagion/contagion_cppr} is the contagion index (Riitters, 1996) and
 also from MHM paper (only makes sense on categorical landscapes)
 }
 }
@@ -69,8 +73,13 @@ x <- sample(1:3, size=49, replace=TRUE, prob=c(0.1, 0.1, 1))  # unbalanced vecto
 table(x)
 x \%>\% richness()
 x \%>\% simpson()
+x \%>\% simpson_cppr()
 x \%>\% shannon()
+x \%>\% shannon_cppr()
 x \%>\% shannon_evenness()
+x \%>\% shannon_evenness_cppr()
 x \%>\% kappa_index()
+x \%>\% kappa_index_cppr()
 x \%>\% contagion()
+x \%>\% contagion_cppr(()
 }

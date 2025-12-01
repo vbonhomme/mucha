@@ -44,17 +44,13 @@ p_student(x, y, min_nb = 5, ...)
 
 p_wilcoxon(x, y, min_nb = 5, ...)
 
-dist_euclidean_cppr(x, ...)
+dist_euclidean_cppr(x, y, ...)
 
-dist_manhattan_cppr(x, ...)
+dist_manhattan_cppr(x, y, ...)
 
-dist_chebyshev_cppr(x, ...)
+dist_chebyshev_cppr(x, y, ...)
 
-diff_rmse_cppr(x, ...)
-
-dist_euclidean_cppr(x, ...)
-
-dist_euclidean_cppr(x, ...)
+diff_rmse_cppr(x, y, ...)
 }
 \arguments{
 \item{x}{a fraction of a \code{SpatRaster} raster}
@@ -80,11 +76,11 @@ First of all, you can use built-in function,
 as long as they return a single value such as \code{cor}.
 \itemize{
 \item \code{cor_pearson} is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.
-\item \code{dist_euclidean} euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
-\item \code{dist_manhattan} manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
-\item \code{dist_chebyshev} Chebyshev's distance (max of absolute distances pixel-wise)
+\item \code{dist_euclidean/dist_euclidean_cppr} euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
+\item \code{dist_manhattan/dist_manhattan_cppr} manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
+\item \code{dist_chebyshev/dist_chebyshev_cppr} Chebyshev's distance (max of absolute distances pixel-wise)
 \item \code{dist_bhat} Bhattacharyya's distance based on distribution distances calculated using nbins
-\item \code{diff_rmse} root-mean square error pixel-wise
+\item \code{diff_rmse/diff_rmse_cppr} root-mean square error pixel-wise
 \item \code{diff_mean} difference of mean values
 \item \code{diff_mean} difference of mean values
 \item \code{diff_var} difference of variance values
@@ -97,8 +93,8 @@ Naturally, you can also use built-in function, as long as they return a single v
 }
 \examples{
 set.seed(2329) # for reproducibility
-x <- sample(1:3, size=50, replace=TRUE, prob=c(0.1, 0.1, 1))  # unbalanced vector
-y <- sample(1:3, size=50, replace=TRUE, prob=c(0.1, 0.1, 1))  # another one
+x <- sample(1:3, size=49, replace=TRUE, prob=c(0.1, 0.1, 1))  # unbalanced vector
+y <- sample(1:3, size=49, replace=TRUE, prob=c(0.1, 0.1, 1))  # another one
 
 # examples runs mostly to test and exemplify
 # but in CMP they will run on each pair of focal windows
@@ -109,12 +105,20 @@ cov(x, y)
 
 # distance indices
 dist_euclidean(x, y)
+dist_euclidean_cppr(x, y)
+
 dist_manhattan(x, y)
+dist_manhattan_cppr(x, y)
+
 dist_chebyshev(x, y)
+dist_chebyshev_cppr(x, y)
+
 dist_bhat(x, y)
 
 # difference indices
 diff_rmse(x, y)
+diff_rmse_cppr(x, y)
+
 diff_mean(x, y)
 diff_median(x, y)
 diff_var(x, y)

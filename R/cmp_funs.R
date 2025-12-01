@@ -18,11 +18,11 @@
 #' as long as they return a single value such as `cor`.
 #'
 #' * `cor_pearson` is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.
-#' * `dist_euclidean` euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
-#' * `dist_manhattan` manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
-#' * `dist_chebyshev` Chebyshev's distance (max of absolute distances pixel-wise)
+#' * `dist_euclidean/dist_euclidean_cppr` euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
+#' * `dist_manhattan/dist_manhattan_cppr` manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
+#' * `dist_chebyshev/dist_chebyshev_cppr` Chebyshev's distance (max of absolute distances pixel-wise)
 #' * `dist_bhat` Bhattacharyya's distance based on distribution distances calculated using nbins
-#' * `diff_rmse` root-mean square error pixel-wise
+#' * `diff_rmse/diff_rmse_cppr` root-mean square error pixel-wise
 #' * `diff_mean` difference of mean values
 #' * `diff_mean` difference of mean values
 #' * `diff_var` difference of variance values
@@ -36,8 +36,8 @@
 #'
 #' @examples
 #' set.seed(2329) # for reproducibility
-#' x <- sample(1:3, size=50, replace=TRUE, prob=c(0.1, 0.1, 1))  # unbalanced vector
-#' y <- sample(1:3, size=50, replace=TRUE, prob=c(0.1, 0.1, 1))  # another one
+#' x <- sample(1:3, size=49, replace=TRUE, prob=c(0.1, 0.1, 1))  # unbalanced vector
+#' y <- sample(1:3, size=49, replace=TRUE, prob=c(0.1, 0.1, 1))  # another one
 #'
 #' # examples runs mostly to test and exemplify
 #' # but in CMP they will run on each pair of focal windows
@@ -48,12 +48,20 @@
 #'
 #' # distance indices
 #' dist_euclidean(x, y)
+#' dist_euclidean_cppr(x, y)
+#'
 #' dist_manhattan(x, y)
+#' dist_manhattan_cppr(x, y)
+#'
 #' dist_chebyshev(x, y)
+#' dist_chebyshev_cppr(x, y)
+#'
 #' dist_bhat(x, y)
 #'
 #' # difference indices
 #' diff_rmse(x, y)
+#' diff_rmse_cppr(x, y)
+#'
 #' diff_mean(x, y)
 #' diff_median(x, y)
 #' diff_var(x, y)
@@ -185,7 +193,7 @@ p_student <- function(x, y, min_nb=5, ...){
   if (sum(valid)<min_nb)
     NA_real_
   else
-    stats::t.test(x[valid], y[valid])$p.value
+    suppressWarnings(stats::t.test(x[valid], y[valid])$p.value)
 }
 
 #' @rdname cmp_funs
@@ -195,46 +203,32 @@ p_wilcoxon <- function(x, y, min_nb=5, ...){
   if (sum(valid)<min_nb)
     NA_real_
   else
-    stats::wilcox.test(x[valid], y[valid])$p.value
+    suppressWarnings(stats::wilcox.test(x[valid], y[valid])$p.value)
 }
 
 # cpp ----
 
 #' @rdname cmp_funs
 #' @export
-dist_euclidean_cppr <- function(x, ...) {
-  dist_euclidean_cpp(x)
+dist_euclidean_cppr <- function(x, y, ...) {
+  dist_euclidean_cpp(x, y)
 }
 
 #' @rdname cmp_funs
 #' @export
-dist_manhattan_cppr <- function(x, ...) {
-  dist_manhattan_cpp(x)
+dist_manhattan_cppr <- function(x,y,  ...) {
+  dist_manhattan_cpp(x, y)
 }
 
 #' @rdname cmp_funs
 #' @export
-dist_chebyshev_cppr <- function(x, ...) {
-  dist_chebyshev_cpp(x)
+dist_chebyshev_cppr <- function(x, y, ...) {
+  dist_chebyshev_cpp(x, y)
 }
 
 #' @rdname cmp_funs
 #' @export
-diff_rmse_cppr <- function(x, ...) {
-  diff_rmse_cpp(x)
+diff_rmse_cppr <- function(x, y,...) {
+  diff_rmse_cpp(x, y)
 }
-
-
-#' @rdname cmp_funs
-#' @export
-dist_euclidean_cppr <- function(x, ...) {
-  dist_euclidean_cpp(x)
-}
-
-#' @rdname cmp_funs
-#' @export
-dist_euclidean_cppr <- function(x, ...) {
-  dist_euclidean_cpp(x)
-}
-
 
