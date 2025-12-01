@@ -40,7 +40,7 @@
 #' x %>% kappa_index()
 #' x %>% kappa_index_cppr()
 #' x %>% contagion()
-#' x %>% contagion_cppr(()
+#' x %>% contagion_cppr()
 #' @name mhm_funs
 #' @export
 richness <- function(x, ...){

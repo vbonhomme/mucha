@@ -81,5 +81,5 @@ x \%>\% shannon_evenness_cppr()
 x \%>\% kappa_index()
 x \%>\% kappa_index_cppr()
 x \%>\% contagion()
-x \%>\% contagion_cppr(()
+x \%>\% contagion_cppr()
 }
