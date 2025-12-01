@@ -8,7 +8,6 @@
 \alias{shannon_evenness}
 \alias{kappa_index}
 \alias{contagion}
-\alias{contagion_cpp_r}
 \title{Summary metrics on a single raster}
 \usage{
 richness(x, ...)
@@ -22,8 +21,6 @@ shannon_evenness(x, ...)
 kappa_index(x, ...)
 
 contagion(x, ...)
-
-contagion_cpp_r(x, ...)
 }
 \arguments{
 \item{x}{a fraction of a \code{SpatRaster} raster}

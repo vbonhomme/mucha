@@ -260,10 +260,4 @@ contagion <- function(x, ...) {
   return(contagion)
 }
 
-#' @rdname mhm_funs
-#' @export
-contagion_cpp_r <- function(x, ...) {
-  contagion_cpp(x, ...)
-}
-
 
