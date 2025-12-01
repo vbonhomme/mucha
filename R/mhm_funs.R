@@ -181,7 +181,7 @@ kappa_index <- function(x, ...) {
 
   # Kappa can range from -1 to 1, but typically we're interested in 0 to 1
   # Negative values indicate less aggregation than random
-  return(kappa)
+  return(as.numeric(kappa))
 }
 
 #' @rdname mhm_funs
