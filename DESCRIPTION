@@ -25,6 +25,7 @@ RoxygenNote: 7.3.1
 Config/Needs/website: rmarkdown
 Imports: 
     magrittr,
+    dplyr,
     purrr,
     terra,
     utils
