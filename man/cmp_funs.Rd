@@ -63,9 +63,9 @@ Typically passed to \link{CMP}.
 First of all, you can use built-in function,
 as long as they return a single value such as \code{cor}.
 \itemize{
-\item \code{correlation}
-\item \code{dist_euclidean} euclidean distance (sqrt of sums of squared diff pixel-wise)
-\item \code{dist_manhattan} manhattan distance (sum of absolute distances pixel-wise
+\item \code{cor_pearson} is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.
+\item \code{dist_euclidean} euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
+\item \code{dist_manhattan} manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
 \item \code{dist_chebyshev} Chebyshev's distance (max of absolute distances pixel-wise)
 \item \code{dist_bhat} Bhattacharyya's distance based on distribution distances calculated using nbins
 \item \code{diff_rmse} root-mean square error pixel-wise

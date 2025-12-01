@@ -10,9 +10,9 @@ ms_profile_df(x)
 ms_profile(
   x,
   summary_fun = mean,
-  error_fun = sd,
+  error_fun = se,
   title = "multiscale profile",
-  ylab = "mean +/- SD"
+  ylab = "mean +/- SE"
 )
 }
 \arguments{

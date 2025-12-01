@@ -1,8 +1,8 @@
 ---
-title: "mucha manual"
+title: "manual"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{mucha manual}
+  %\VignetteIndexEntry{manual}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -11,7 +11,7 @@ vignette: >
   
 `mucha` implements a simple workflow for *mu*ltiscale *c*omparison and *h*eterogeneity *a*nalyses.
   
-  Put briefly, the idea is to obtain a summary statistic for all pixels of a single (MHM) or two (CMP) landscapes, using a moving window approach, and for with a varying window size. Then composite map and profile plot are calculated, so that multiscale patterns can be detected, analysed and displayed.
+Put briefly, the idea is to obtain a summary statistic for all pixels of a single (MHM) or two (CMP) landscapes, using a moving window approach, and for with a varying window size. Then composite map and profile plot are calculated, so that multiscale patterns can be detected, analysed and displayed.
   
   The primary goal of the CMP R package is to port the [MHM](https://amap-dev.cirad.fr/projects/MHM) and [CMP](https://amap-dev.cirad.fr/projects/CMP) softwares by Gaucherel and colleagues to R.
   

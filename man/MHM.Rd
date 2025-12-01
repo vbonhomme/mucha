@@ -62,21 +62,18 @@ p(l0)
 # calculate MHM on it
 l0_mhm <- MHM(l0,
               window=seq(2, 13, by=2)+1,
-              fun=richness)
+              fun=shannon_evenness)
 
-# display all intermediate maps
+# display all monoscale maps
 p(l0_mhm)
 
 # the profile plot
 ms_profile(l0_mhm)
+ms_profile(l0_mhm, summary_fun=median, error_fun=sd, ylab="median +/- sd")
 
 # and a synthetic map
-app(l0_mhm,  median) \%>\% p()
-app(l0_mhm,  sd) \%>\% p()
-
-# change the color palette and print side by side
-l0_sd <- app(l0_mhm,  sd)
-c(l0, l0_sd) \%>\% p()
+app(l0_mhm,  median) \%>\% p(title="multiscale map (median)")
+app(l0_mhm,  sd) \%>\% p(title="sd", palette="Plasma")
 
 }
 \references{

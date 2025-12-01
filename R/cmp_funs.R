@@ -17,9 +17,9 @@
 #' First of all, you can use built-in function,
 #' as long as they return a single value such as `cor`.
 #'
-#' * `correlation`
-#' * `dist_euclidean` euclidean distance (sqrt of sums of squared diff pixel-wise)
-#' * `dist_manhattan` manhattan distance (sum of absolute distances pixel-wise
+#' * `cor_pearson` is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.
+#' * `dist_euclidean` euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
+#' * `dist_manhattan` manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
 #' * `dist_chebyshev` Chebyshev's distance (max of absolute distances pixel-wise)
 #' * `dist_bhat` Bhattacharyya's distance based on distribution distances calculated using nbins
 #' * `diff_rmse` root-mean square error pixel-wise
@@ -68,7 +68,7 @@
 dist_euclidean <- function(x, y, ...) {
   valid <- !is.na(x) & !is.na(y)
   if (sum(valid) == 0) return(NA)
-  sqrt(sum((x[valid] - y[valid])^2))
+  sqrt(sum((x[valid] - y[valid])^2))/sum(valid)
 }
 
 # l1 norm
@@ -77,7 +77,7 @@ dist_euclidean <- function(x, y, ...) {
 dist_manhattan <- function(x, y, ...) {
   valid <- !is.na(x) & !is.na(y)
   if (sum(valid) == 0) return(NA)
-  sum(abs(x[valid] - y[valid]))
+  sum(abs(x[valid] - y[valid]))/sum(valid)
 }
 
 # maximum difference

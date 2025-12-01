@@ -22,6 +22,8 @@
 #' p(l, palette = "RdYlBu", ncol=1)
 #' @export
 p <- function(x, palette = "viridis", asp=1, ncol = NULL, title, ...) {
+  # save par restore later
+  op <- graphics::par()
 
   # calculate colors
   if(is.character(palette) && length(palette)==1) {
@@ -64,18 +66,20 @@ p <- function(x, palette = "viridis", asp=1, ncol = NULL, title, ...) {
 
     # first layer will have a legend
     terra::plot(x[[1]], range = global_range, legend = TRUE,
-                col = cols, main = main,  ...)
+                col = cols, main = main[1],  ...)
 
     # others nope
     for(i in 2:n_layers) {
       terra::plot(x[[i]], range = global_range, legend = FALSE,
-                  col = cols, main = main,  ...)
+                  col = cols, main = main[i],  ...)
     }
 
     # reset layout to stay friend with evryone
     graphics::layout(1)
-
   }
+
+  # restore par
+  suppressWarnings(graphics::par(op))
 }
 
 #' Profile method for MHM and CMP
@@ -130,9 +134,9 @@ ms_profile_df <- function(x){
 #' @export
 ms_profile <- function(x,
                        summary_fun=mean,
-                       error_fun=sd,
+                       error_fun=se,
                        title="multiscale profile",
-                       ylab="mean +/- SD"){
+                       ylab="mean +/- SE"){
   x <- ms_profile_df(x)
   # filter NAs rows
   x <- x[!is.na(x$value), ]

@@ -23,6 +23,7 @@ NULL
 #' @importFrom stats rnorm
 #' @importFrom utils write.table
 #' @importFrom graphics axis
+#' @importFrom graphics axis
 #' @importFrom graphics points
 #' @importFrom graphics segments
 #' @importFrom graphics layout
@@ -35,3 +36,15 @@ globalVariables(c(".", "window"))
 .onLoad <- function(libname, pkgname) {
   terra::terraOptions(progress=0)
 }
+
+## usethis namespace: start
+#' @importFrom Rcpp sourceCpp
+## usethis namespace: end
+NULL
+
+## usethis namespace: start
+#' @useDynLib mucha, .registration = TRUE
+## usethis namespace: end
+NULL
+
+
