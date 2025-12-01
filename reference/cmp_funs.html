@@ -20,7 +20,7 @@ Typically passed to CMP."><meta property="og:image" content="https://vbonhomme.g
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/intro.html">mucha manual</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/intro.html">manual</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -102,9 +102,9 @@ otherwise a <code>NA_real</code> is returned</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>First of all, you can use built-in function,
-as long as they return a single value such as <code>cor</code>.</p><ul><li><p><code>correlation</code></p></li>
-<li><p><code>dist_euclidean</code> euclidean distance (sqrt of sums of squared diff pixel-wise)</p></li>
-<li><p><code>dist_manhattan</code> manhattan distance (sum of absolute distances pixel-wise</p></li>
+as long as they return a single value such as <code>cor</code>.</p><ul><li><p><code>cor_pearson</code> is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.</p></li>
+<li><p><code>dist_euclidean</code> euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)</p></li>
+<li><p><code>dist_manhattan</code> manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)</p></li>
 <li><p><code>dist_chebyshev</code> Chebyshev's distance (max of absolute distances pixel-wise)</p></li>
 <li><p><code>dist_bhat</code> Bhattacharyya's distance based on distribution distances calculated using nbins</p></li>
 <li><p><code>diff_rmse</code> root-mean square error pixel-wise</p></li>
@@ -138,9 +138,9 @@ as long as they return a single value such as <code>cor</code>.</p><ul><li><p><c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># distance indices</span></span></span>
 <span class="r-in"><span><span class="fu">dist_euclidean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6.164414</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1232883</span>
 <span class="r-in"><span><span class="fu">dist_manhattan</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.48</span>
 <span class="r-in"><span><span class="fu">dist_chebyshev</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
 <span class="r-in"><span><span class="fu">dist_bhat</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>

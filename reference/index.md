@@ -29,6 +29,7 @@
   [`shannon_evenness()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`kappa_index()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`contagion()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
+  [`contagion_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   : Summary metrics on a single raster
 
 ## CMP statistics for pairs of landscapes

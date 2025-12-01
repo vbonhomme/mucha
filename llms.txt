@@ -136,6 +136,7 @@ suggest features on the github repo <https://github.com/vbonhomme/mucha>
   [`shannon_evenness()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`kappa_index()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`contagion()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
+  [`contagion_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   : Summary metrics on a single raster
 
 ## CMP statistics for pairs of landscapes
@@ -206,4 +207,4 @@ suggest features on the github repo <https://github.com/vbonhomme/mucha>
 
 ### All vignettes
 
-- [mucha manual](https://vbonhomme.github.io/mucha/articles/intro.md):
+- [manual](https://vbonhomme.github.io/mucha/articles/intro.md):

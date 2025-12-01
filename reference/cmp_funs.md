@@ -64,13 +64,14 @@ numeric the index of interest
 First of all, you can use built-in function, as long as they return a
 single value such as `cor`.
 
-- `correlation`
+- `cor_pearson` is pearson correlation coefficient. Prone to NA for
+  small window sizes with sd=0.
 
 - `dist_euclidean` euclidean distance (sqrt of sums of squared diff
-  pixel-wise)
+  pixel-wise, divided by the number of valid pixels)
 
 - `dist_manhattan` manhattan distance (sum of absolute distances
-  pixel-wise
+  pixel-wise, , divided by the number of valid pixels)
 
 - `dist_chebyshev` Chebyshev's distance (max of absolute distances
   pixel-wise)
@@ -118,9 +119,9 @@ cov(x, y)
 
 # distance indices
 dist_euclidean(x, y)
-#> [1] 6.164414
+#> [1] 0.1232883
 dist_manhattan(x, y)
-#> [1] 24
+#> [1] 0.48
 dist_chebyshev(x, y)
 #> [1] 2
 dist_bhat(x, y)

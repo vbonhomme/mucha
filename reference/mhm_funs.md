@@ -18,6 +18,8 @@ shannon_evenness(x, ...)
 kappa_index(x, ...)
 
 contagion(x, ...)
+
+contagion_cppr(x, ...)
 ```
 
 ## Arguments

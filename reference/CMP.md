@@ -88,12 +88,25 @@ ls2 <- raster_resample(l2, 0.1)
 
 ls_cmp <- CMP(ls1, ls2,
               window=seq(3, 13, by=2),
-              fun=diff_rmse)
+              fun=cor_pearson)
 
-p(ls_cmp)
+# monoscale maps with customized title/palette
+p(ls_cmp,
+  title=paste0("window size ", names(ls_cmp)),
+  palette="SunsetDark")
 
 
-ms_profile(ls_cmp)
+# correlation is prone to NA when window is small enough
+# to homogeneous focal values, ie with sd=0 and cor not defined.
+# this gives us the opportunity to see how to select layers
+p(ls_cmp[[1]])
+
+p(ls_cmp[[-1]])
+
+
+
+# profile plot
+ms_profile(ls_cmp, title="a nice title here")
 
 
 app(ls_cmp, mean) %>% p()

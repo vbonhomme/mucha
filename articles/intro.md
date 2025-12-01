@@ -1,4 +1,4 @@
-# mucha manual
+# manual
 
 ## Foreword
 
