@@ -31,17 +31,13 @@ p_student(x, y, min_nb = 5, ...)
 
 p_wilcoxon(x, y, min_nb = 5, ...)
 
-dist_euclidean_cppr(x, ...)
+dist_euclidean_cppr(x, y, ...)
 
-dist_manhattan_cppr(x, ...)
+dist_manhattan_cppr(x, y, ...)
 
-dist_chebyshev_cppr(x, ...)
+dist_chebyshev_cppr(x, y, ...)
 
-diff_rmse_cppr(x, ...)
-
-dist_euclidean_cppr(x, ...)
-
-dist_euclidean_cppr(x, ...)
+diff_rmse_cppr(x, y, ...)
 ```
 
 ## Arguments
@@ -79,19 +75,20 @@ single value such as `cor`.
 - `cor_pearson` is pearson correlation coefficient. Prone to NA for
   small window sizes with sd=0.
 
-- `dist_euclidean` euclidean distance (sqrt of sums of squared diff
-  pixel-wise, divided by the number of valid pixels)
+- `dist_euclidean/dist_euclidean_cppr` euclidean distance (sqrt of sums
+  of squared diff pixel-wise, divided by the number of valid pixels)
 
-- `dist_manhattan` manhattan distance (sum of absolute distances
-  pixel-wise, , divided by the number of valid pixels)
+- `dist_manhattan/dist_manhattan_cppr` manhattan distance (sum of
+  absolute distances pixel-wise, , divided by the number of valid
+  pixels)
 
-- `dist_chebyshev` Chebyshev's distance (max of absolute distances
-  pixel-wise)
+- `dist_chebyshev/dist_chebyshev_cppr` Chebyshev's distance (max of
+  absolute distances pixel-wise)
 
 - `dist_bhat` Bhattacharyya's distance based on distribution distances
   calculated using nbins
 
-- `diff_rmse` root-mean square error pixel-wise
+- `diff_rmse/diff_rmse_cppr` root-mean square error pixel-wise
 
 - `diff_mean` difference of mean values
 
@@ -117,43 +114,55 @@ single value such as: `cor`,
 
 ``` r
 set.seed(2329) # for reproducibility
-x <- sample(1:3, size=50, replace=TRUE, prob=c(0.1, 0.1, 1))  # unbalanced vector
-y <- sample(1:3, size=50, replace=TRUE, prob=c(0.1, 0.1, 1))  # another one
+x <- sample(1:3, size=49, replace=TRUE, prob=c(0.1, 0.1, 1))  # unbalanced vector
+y <- sample(1:3, size=49, replace=TRUE, prob=c(0.1, 0.1, 1))  # another one
 
 # examples runs mostly to test and exemplify
 # but in CMP they will run on each pair of focal windows
 
 # built in functions
 cor(x, y)
-#> [1] 0.1026562
+#> [1] -0.2023918
 cov(x, y)
-#> [1] 0.04204082
+#> [1] -0.08418367
 
 # distance indices
 dist_euclidean(x, y)
-#> [1] 0.1232883
+#> [1] 0.1443075
+dist_euclidean_cppr(x, y)
+#> [1] 0.1443075
+
 dist_manhattan(x, y)
-#> [1] 0.48
+#> [1] 0.6122449
+dist_manhattan_cppr(x, y)
+#> [1] 0.6122449
+
 dist_chebyshev(x, y)
 #> [1] 2
+dist_chebyshev_cppr(x, y)
+#> [1] 2
+
 dist_bhat(x, y)
-#> [1] 0.01033658
+#> [1] 0.01055561
 
 # difference indices
 diff_rmse(x, y)
-#> [1] 0.8717798
+#> [1] 1.010153
+diff_rmse_cppr(x, y)
+#> [1] 1.010153
+
 diff_mean(x, y)
-#> [1] 0.12
+#> [1] 0.122449
 diff_median(x, y)
 #> [1] 0
 diff_var(x, y)
-#> [1] -0.2073469
+#> [1] -0.210034
 diff_cv(x, y)
-#> [1] -0.07078931
+#> [1] -0.07160757
 
 # p value from Student t test
 p_student(x, y)
-#> [1] 0.3583415
+#> [1] 0.3572371
 p_wilcoxon(x, y)
-#> [1] 0.5260465
+#> [1] 0.5229461
 ```

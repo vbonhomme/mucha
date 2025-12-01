@@ -65,7 +65,7 @@ Typically passed to <a href="MHM.html">MHM</a>.</p>
 <span></span>
 <span><span class="fu">simpson_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">shannon_cpp</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">shannon_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -87,15 +87,17 @@ used to collect <a href="https://rspatial.github.io/terra/reference/focal.html" 
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-
-<ul><li><p><code>richness</code> simply returns the total number of unique classes
+    <p>For now on, some function have a cpp counterpart. The R implementation
+will likely be removed soon. So far we maintain both for the sake of testing.
+When a <code>_cppr</code> version exists, use it!</p><ul><li><p><code>richness</code> simply returns the total number of unique classes
 (only makes sense on categorical landscapes)</p></li>
-<li><p><code>simpson</code> is the Simpson's diversity index</p></li>
-<li><p><code>shannon</code> is the Shannon's diversity index</p></li>
-<li><p><code>shannon_evenness</code> is the Shannon's evenness index</p></li>
-<li><p><code>kappa_index</code> is Kappa index</p></li>
+<li><p><code>simpson/simpson_cppr</code> is the Simpson's diversity index</p></li>
+<li><p><code>shannon</code>/<code>shannon_cppr</code> is the Shannon's diversity index</p></li>
+<li><p><code>shannon/shannon_cppr</code> optimized version in cpp</p></li>
+<li><p><code>shannon_evenness/shannon_evenness_cppr</code> is the Shannon's evenness index</p></li>
+<li><p><code>kappa_index/kappa_index_cppr</code> is Kappa index</p></li>
 <li><p><code>student_p</code> is the p value from a Student's test</p></li>
-<li><p><code>contagion</code> is the contagion index (Riitters, 1996) and
+<li><p><code>contagion/contagion_cppr</code> is the contagion index (Riitters, 1996) and
 also from MHM paper (only makes sense on categorical landscapes)</p></li>
 </ul></div>
 
@@ -111,14 +113,24 @@ also from MHM paper (only makes sense on categorical landscapes)</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">simpson</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3423574</span>
+<span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">simpson_cppr</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3423574</span>
 <span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">shannon</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6306752</span>
+<span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">shannon_cppr</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6306752</span>
 <span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">shannon_evenness</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5740653</span>
+<span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">shannon_evenness_cppr</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5740653</span>
 <span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">kappa_index</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.01044568 </span>
+<span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">kappa_index_cppr</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01044568</span>
 <span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">contagion</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 42.00754</span>
+<span class="r-in"><span><span class="va">x</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">contagion_cppr</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 42.00754</span>
 </code></pre></div>
     </div>

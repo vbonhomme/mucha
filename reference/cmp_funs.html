@@ -69,17 +69,13 @@ Typically passed to <a href="CMP.html">CMP</a>.</p>
 <span></span>
 <span><span class="fu">p_wilcoxon</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, min_nb <span class="op">=</span> <span class="fl">5</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dist_euclidean_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">dist_euclidean_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dist_manhattan_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">dist_manhattan_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dist_chebyshev_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">dist_chebyshev_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">diff_rmse_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">dist_euclidean_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">dist_euclidean_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">diff_rmse_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -115,11 +111,11 @@ otherwise a <code>NA_real</code> is returned</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>First of all, you can use built-in function,
 as long as they return a single value such as <code>cor</code>.</p><ul><li><p><code>cor_pearson</code> is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.</p></li>
-<li><p><code>dist_euclidean</code> euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)</p></li>
-<li><p><code>dist_manhattan</code> manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)</p></li>
-<li><p><code>dist_chebyshev</code> Chebyshev's distance (max of absolute distances pixel-wise)</p></li>
+<li><p><code>dist_euclidean/dist_euclidean_cppr</code> euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)</p></li>
+<li><p><code>dist_manhattan/dist_manhattan_cppr</code> manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)</p></li>
+<li><p><code>dist_chebyshev/dist_chebyshev_cppr</code> Chebyshev's distance (max of absolute distances pixel-wise)</p></li>
 <li><p><code>dist_bhat</code> Bhattacharyya's distance based on distribution distances calculated using nbins</p></li>
-<li><p><code>diff_rmse</code> root-mean square error pixel-wise</p></li>
+<li><p><code>diff_rmse/diff_rmse_cppr</code> root-mean square error pixel-wise</p></li>
 <li><p><code>diff_mean</code> difference of mean values</p></li>
 <li><p><code>diff_mean</code> difference of mean values</p></li>
 <li><p><code>diff_var</code> difference of variance values</p></li>
@@ -136,45 +132,57 @@ as long as they return a single value such as <code>cor</code>.</p><ul><li><p><c
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2329</span><span class="op">)</span> <span class="co"># for reproducibility</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size<span class="op">=</span><span class="fl">50</span>, replace<span class="op">=</span><span class="cn">TRUE</span>, prob<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># unbalanced vector</span></span></span>
-<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size<span class="op">=</span><span class="fl">50</span>, replace<span class="op">=</span><span class="cn">TRUE</span>, prob<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># another one</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size<span class="op">=</span><span class="fl">49</span>, replace<span class="op">=</span><span class="cn">TRUE</span>, prob<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># unbalanced vector</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, size<span class="op">=</span><span class="fl">49</span>, replace<span class="op">=</span><span class="cn">TRUE</span>, prob<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># another one</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># examples runs mostly to test and exemplify</span></span></span>
 <span class="r-in"><span><span class="co"># but in CMP they will run on each pair of focal windows</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># built in functions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1026562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2023918</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04204082</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.08418367</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># distance indices</span></span></span>
 <span class="r-in"><span><span class="fu">dist_euclidean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1232883</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1443075</span>
+<span class="r-in"><span><span class="fu">dist_euclidean_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1443075</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">dist_manhattan</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6122449</span>
+<span class="r-in"><span><span class="fu">dist_manhattan_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6122449</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">dist_chebyshev</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-in"><span><span class="fu">dist_chebyshev_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">dist_bhat</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01033658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01055561</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># difference indices</span></span></span>
 <span class="r-in"><span><span class="fu">diff_rmse</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8717798</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.010153</span>
+<span class="r-in"><span><span class="fu">diff_rmse_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.010153</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">diff_mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.122449</span>
 <span class="r-in"><span><span class="fu">diff_median</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span><span class="fu">diff_var</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2073469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.210034</span>
 <span class="r-in"><span><span class="fu">diff_cv</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.07078931</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.07160757</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># p value from Student t test</span></span></span>
 <span class="r-in"><span><span class="fu">p_student</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3583415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3572371</span>
 <span class="r-in"><span><span class="fu">p_wilcoxon</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5260465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5229461</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

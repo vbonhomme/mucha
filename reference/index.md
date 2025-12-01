@@ -33,7 +33,7 @@
   [`shannon_evenness_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`kappa_index_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`simpson_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
-  [`shannon_cpp()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
+  [`shannon_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   : Summary metrics on a single raster
 
 ## CMP statistics for pairs of landscapes

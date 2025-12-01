@@ -27,7 +27,7 @@ kappa_index_cppr(x, ...)
 
 simpson_cppr(x, ...)
 
-shannon_cpp(x, ...)
+shannon_cppr(x, ...)
 ```
 
 ## Arguments
@@ -48,21 +48,28 @@ numeric the index of interest
 
 ## Details
 
+For now on, some function have a cpp counterpart. The R implementation
+will likely be removed soon. So far we maintain both for the sake of
+testing. When a `_cppr` version exists, use it!
+
 - `richness` simply returns the total number of unique classes (only
   makes sense on categorical landscapes)
 
-- `simpson` is the Simpson's diversity index
+- `simpson/simpson_cppr` is the Simpson's diversity index
 
-- `shannon` is the Shannon's diversity index
+- `shannon`/`shannon_cppr` is the Shannon's diversity index
 
-- `shannon_evenness` is the Shannon's evenness index
+- `shannon/shannon_cppr` optimized version in cpp
 
-- `kappa_index` is Kappa index
+- `shannon_evenness/shannon_evenness_cppr` is the Shannon's evenness
+  index
+
+- `kappa_index/kappa_index_cppr` is Kappa index
 
 - `student_p` is the p value from a Student's test
 
-- `contagion` is the contagion index (Riitters, 1996) and also from MHM
-  paper (only makes sense on categorical landscapes)
+- `contagion/contagion_cppr` is the contagion index (Riitters, 1996) and
+  also from MHM paper (only makes sense on categorical landscapes)
 
 ## Examples
 
@@ -77,13 +84,23 @@ x %>% richness()
 #> [1] 3
 x %>% simpson()
 #> [1] 0.3423574
+x %>% simpson_cppr()
+#> [1] 0.3423574
 x %>% shannon()
 #> [1] 0.6306752
+x %>% shannon_cppr()
+#> [1] 0.6306752
 x %>% shannon_evenness()
+#> [1] 0.5740653
+x %>% shannon_evenness_cppr()
 #> [1] 0.5740653
 x %>% kappa_index()
 #>          1 
 #> 0.01044568 
+x %>% kappa_index_cppr()
+#> [1] 0.01044568
 x %>% contagion()
+#> [1] 42.00754
+x %>% contagion_cppr()
 #> [1] 42.00754
 ```
