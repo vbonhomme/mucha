@@ -30,6 +30,18 @@ diff_cv(x, y, ...)
 p_student(x, y, min_nb = 5, ...)
 
 p_wilcoxon(x, y, min_nb = 5, ...)
+
+dist_euclidean_cppr(x, ...)
+
+dist_manhattan_cppr(x, ...)
+
+dist_chebyshev_cppr(x, ...)
+
+diff_rmse_cppr(x, ...)
+
+dist_euclidean_cppr(x, ...)
+
+dist_euclidean_cppr(x, ...)
 ```
 
 ## Arguments

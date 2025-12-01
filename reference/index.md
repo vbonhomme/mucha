@@ -30,6 +30,10 @@
   [`kappa_index()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`contagion()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   [`contagion_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
+  [`shannon_evenness_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
+  [`kappa_index_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
+  [`simpson_cppr()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
+  [`shannon_cpp()`](https://vbonhomme.github.io/mucha/reference/mhm_funs.md)
   : Summary metrics on a single raster
 
 ## CMP statistics for pairs of landscapes
@@ -46,6 +50,10 @@
   [`diff_cv()`](https://vbonhomme.github.io/mucha/reference/cmp_funs.md)
   [`p_student()`](https://vbonhomme.github.io/mucha/reference/cmp_funs.md)
   [`p_wilcoxon()`](https://vbonhomme.github.io/mucha/reference/cmp_funs.md)
+  [`dist_euclidean_cppr()`](https://vbonhomme.github.io/mucha/reference/cmp_funs.md)
+  [`dist_manhattan_cppr()`](https://vbonhomme.github.io/mucha/reference/cmp_funs.md)
+  [`dist_chebyshev_cppr()`](https://vbonhomme.github.io/mucha/reference/cmp_funs.md)
+  [`diff_rmse_cppr()`](https://vbonhomme.github.io/mucha/reference/cmp_funs.md)
   : Summary metrics on a pair of rasters
 
 ## Summarize and visualize MHM/CMP Results

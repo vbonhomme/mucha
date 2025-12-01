@@ -20,6 +20,14 @@ kappa_index(x, ...)
 contagion(x, ...)
 
 contagion_cppr(x, ...)
+
+shannon_evenness_cppr(x, ...)
+
+kappa_index_cppr(x, ...)
+
+simpson_cppr(x, ...)
+
+shannon_cpp(x, ...)
 ```
 
 ## Arguments
