@@ -95,8 +95,7 @@ x %>% shannon_evenness()
 x %>% shannon_evenness_cppr()
 #> [1] 0.5740653
 x %>% kappa_index()
-#>          1 
-#> 0.01044568 
+#> [1] 0.01044568
 x %>% kappa_index_cppr()
 #> [1] 0.01044568
 x %>% contagion()
