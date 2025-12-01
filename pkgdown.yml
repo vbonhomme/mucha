@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  articles/intro: intro.html
+last_built: 2025-12-01T10:45Z
+urls:
+  reference: https://vbonhomme.github.io/mucha/reference
+  article: https://vbonhomme.github.io/mucha/articles
