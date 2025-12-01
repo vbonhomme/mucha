@@ -9,6 +9,10 @@
 \alias{kappa_index}
 \alias{contagion}
 \alias{contagion_cppr}
+\alias{shannon_evenness_cppr}
+\alias{kappa_index_cppr}
+\alias{simpson_cppr}
+\alias{shannon_cpp}
 \title{Summary metrics on a single raster}
 \usage{
 richness(x, ...)
@@ -24,6 +28,14 @@ kappa_index(x, ...)
 contagion(x, ...)
 
 contagion_cppr(x, ...)
+
+shannon_evenness_cppr(x, ...)
+
+kappa_index_cppr(x, ...)
+
+simpson_cppr(x, ...)
+
+shannon_cpp(x, ...)
 }
 \arguments{
 \item{x}{a fraction of a \code{SpatRaster} raster}

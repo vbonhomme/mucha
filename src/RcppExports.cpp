@@ -21,9 +21,109 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dist_euclidean_cpp
+double dist_euclidean_cpp(NumericVector x, NumericVector y);
+RcppExport SEXP _mucha_dist_euclidean_cpp(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(dist_euclidean_cpp(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dist_manhattan_cpp
+double dist_manhattan_cpp(NumericVector x, NumericVector y);
+RcppExport SEXP _mucha_dist_manhattan_cpp(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(dist_manhattan_cpp(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dist_chebyshev_cpp
+double dist_chebyshev_cpp(NumericVector x, NumericVector y);
+RcppExport SEXP _mucha_dist_chebyshev_cpp(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(dist_chebyshev_cpp(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// diff_rmse_cpp
+double diff_rmse_cpp(NumericVector x, NumericVector y);
+RcppExport SEXP _mucha_diff_rmse_cpp(SEXP xSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(diff_rmse_cpp(x, y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simpson_cpp
+double simpson_cpp(NumericVector x);
+RcppExport SEXP _mucha_simpson_cpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(simpson_cpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// shannon_cpp
+double shannon_cpp(NumericVector x);
+RcppExport SEXP _mucha_shannon_cpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(shannon_cpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// kappa_index_cpp
+double kappa_index_cpp(NumericVector x);
+RcppExport SEXP _mucha_kappa_index_cpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(kappa_index_cpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// shannon_evenness_cpp
+double shannon_evenness_cpp(NumericVector x);
+RcppExport SEXP _mucha_shannon_evenness_cpp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(shannon_evenness_cpp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_mucha_contagion_cpp", (DL_FUNC) &_mucha_contagion_cpp, 1},
+    {"_mucha_dist_euclidean_cpp", (DL_FUNC) &_mucha_dist_euclidean_cpp, 2},
+    {"_mucha_dist_manhattan_cpp", (DL_FUNC) &_mucha_dist_manhattan_cpp, 2},
+    {"_mucha_dist_chebyshev_cpp", (DL_FUNC) &_mucha_dist_chebyshev_cpp, 2},
+    {"_mucha_diff_rmse_cpp", (DL_FUNC) &_mucha_diff_rmse_cpp, 2},
+    {"_mucha_simpson_cpp", (DL_FUNC) &_mucha_simpson_cpp, 1},
+    {"_mucha_shannon_cpp", (DL_FUNC) &_mucha_shannon_cpp, 1},
+    {"_mucha_kappa_index_cpp", (DL_FUNC) &_mucha_kappa_index_cpp, 1},
+    {"_mucha_shannon_evenness_cpp", (DL_FUNC) &_mucha_shannon_evenness_cpp, 1},
     {NULL, NULL, 0}
 };
 

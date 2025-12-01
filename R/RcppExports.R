@@ -8,3 +8,44 @@ contagion_cpp <- function(x) {
     .Call(`_mucha_contagion_cpp`, x)
 }
 
+#' Euclidean Distance (C++ implementation)
+NULL
+
+dist_euclidean_cpp <- function(x, y) {
+    .Call(`_mucha_dist_euclidean_cpp`, x, y)
+}
+
+dist_manhattan_cpp <- function(x, y) {
+    .Call(`_mucha_dist_manhattan_cpp`, x, y)
+}
+
+dist_chebyshev_cpp <- function(x, y) {
+    .Call(`_mucha_dist_chebyshev_cpp`, x, y)
+}
+
+diff_rmse_cpp <- function(x, y) {
+    .Call(`_mucha_diff_rmse_cpp`, x, y)
+}
+
+simpson_cpp <- function(x) {
+    .Call(`_mucha_simpson_cpp`, x)
+}
+
+shannon_cpp <- function(x) {
+    .Call(`_mucha_shannon_cpp`, x)
+}
+
+#' Calculate Kappa Index (C++ implementation)
+NULL
+
+kappa_index_cpp <- function(x) {
+    .Call(`_mucha_kappa_index_cpp`, x)
+}
+
+#' Calculate Shannon Evenness Index (C++ implementation)
+NULL
+
+shannon_evenness_cpp <- function(x) {
+    .Call(`_mucha_shannon_evenness_cpp`, x)
+}
+

@@ -260,8 +260,35 @@ contagion <- function(x, ...) {
   return(contagion)
 }
 
+# cpp ------
 #' @rdname mhm_funs
 #' @export
 contagion_cppr <- function(x, ...) {
   contagion_cpp(x)
 }
+
+#' @rdname mhm_funs
+#' @export
+shannon_evenness_cppr <- function(x, ...) {
+  shannon_evenness_cpp(x)
+}
+
+#' @rdname mhm_funs
+#' @export
+kappa_index_cppr <- function(x, ...) {
+  kappa_index_cpp(x)
+}
+
+#' @rdname mhm_funs
+#' @export
+simpson_cppr <- function(x, ...) {
+  simpson_cpp(x)
+}
+
+#' @rdname mhm_funs
+#' @export
+shannon_cpp <- function(x, ...) {
+  shannon_cpp(x)
+}
+
+

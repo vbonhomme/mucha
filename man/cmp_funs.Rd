@@ -14,6 +14,10 @@
 \alias{diff_cv}
 \alias{p_student}
 \alias{p_wilcoxon}
+\alias{dist_euclidean_cppr}
+\alias{dist_manhattan_cppr}
+\alias{dist_chebyshev_cppr}
+\alias{diff_rmse_cppr}
 \title{Summary metrics on a pair of rasters}
 \usage{
 dist_euclidean(x, y, ...)
@@ -39,6 +43,18 @@ diff_cv(x, y, ...)
 p_student(x, y, min_nb = 5, ...)
 
 p_wilcoxon(x, y, min_nb = 5, ...)
+
+dist_euclidean_cppr(x, ...)
+
+dist_manhattan_cppr(x, ...)
+
+dist_chebyshev_cppr(x, ...)
+
+diff_rmse_cppr(x, ...)
+
+dist_euclidean_cppr(x, ...)
+
+dist_euclidean_cppr(x, ...)
 }
 \arguments{
 \item{x}{a fraction of a \code{SpatRaster} raster}

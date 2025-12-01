@@ -197,3 +197,44 @@ p_wilcoxon <- function(x, y, min_nb=5, ...){
   else
     stats::wilcox.test(x[valid], y[valid])$p.value
 }
+
+# cpp ----
+
+#' @rdname cmp_funs
+#' @export
+dist_euclidean_cppr <- function(x, ...) {
+  dist_euclidean_cpp(x)
+}
+
+#' @rdname cmp_funs
+#' @export
+dist_manhattan_cppr <- function(x, ...) {
+  dist_manhattan_cpp(x)
+}
+
+#' @rdname cmp_funs
+#' @export
+dist_chebyshev_cppr <- function(x, ...) {
+  dist_chebyshev_cpp(x)
+}
+
+#' @rdname cmp_funs
+#' @export
+diff_rmse_cppr <- function(x, ...) {
+  diff_rmse_cpp(x)
+}
+
+
+#' @rdname cmp_funs
+#' @export
+dist_euclidean_cppr <- function(x, ...) {
+  dist_euclidean_cpp(x)
+}
+
+#' @rdname cmp_funs
+#' @export
+dist_euclidean_cppr <- function(x, ...) {
+  dist_euclidean_cpp(x)
+}
+
+
