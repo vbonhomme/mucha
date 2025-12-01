@@ -1,7 +1,5 @@
 # mucha
 
-[![](inst/figures/mucha.png)](https://vbonhomme.github.io/mucha/)
-
 ## In brief
 
 The primary goal of CMP package is to port the MHM and CMP softwares by
@@ -69,6 +67,7 @@ Now calculate richness at three different scales.
 
 ``` r
 l_mhm <- MHM(l, window=c(3, 13, 23, 33), fun=richness)
+#>  ■■■■■■■■■■■■■■■■ 50% | ETA: 1s ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 2s 
 ```
 
 Let’s plot all monoscale maps:

@@ -63,10 +63,13 @@
 <img src="logo.png" class="logo" alt=""><h1 id="mucha">mucha<a class="anchor" aria-label="anchor" href="#mucha"></a>
 </h1>
 </div>
-<p><a href=""><img src="inst/figures/mucha.png" width="175" height="200" align="right"></a></p>
-<!-- badges: start -->
-
-<!-- badges: end -->
+<!-- badges:
+[![License: GPL (>= 3)](https://img.shields.io/badge/license-GPL (>= 3)-blue.svg)](https://cran.r-project.org/web/licenses/GPL (>= 3))
+[![](https://www.r-pkg.org/badges/version/mucha)](https://cran.r-project.org/package=mucha)
+[![CRAN checks](https://cranchecks.info/badges/summary/mucha)](https://cran.r-project.org/web/checks/check_results_mucha.html)
+[![](http://cranlogs.r-pkg.org/badges/last-month/mucha)](https://cran.r-project.org/package=mucha)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+&#10;end -->
 <div class="section level2">
 <h2 id="in-brief">In brief<a class="anchor" aria-label="anchor" href="#in-brief"></a>
 </h2>
@@ -109,7 +112,8 @@
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
 <p>Now calculate richness at three different scales.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">l_mhm</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/MHM.html">MHM</a></span><span class="op">(</span><span class="va">l</span>, window<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span>, <span class="fl">23</span>, <span class="fl">33</span><span class="op">)</span>, fun<span class="op">=</span><span class="va">richness</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">l_mhm</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/MHM.html">MHM</a></span><span class="op">(</span><span class="va">l</span>, window<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span>, <span class="fl">23</span>, <span class="fl">33</span><span class="op">)</span>, fun<span class="op">=</span><span class="va">richness</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  ■■■■■■■■■■■■■■■■ 50% | ETA: 1s ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 2s </span></span></code></pre></div>
 <p>Let’s plot all monoscale maps:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span><span class="va">l_mhm</span><span class="op">)</span></span></code></pre></div>
@@ -160,16 +164,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/web/licenses/GPL%20(%3E=%203)" class="external-link"><img src="https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg" alt="License: GPL (&gt;= 3)"></a></li>
-<li><a href="https://cran.r-project.org/package=mucha" class="external-link"><img src="https://www.r-pkg.org/badges/version/mucha"></a></li>
-<li><a href="https://cran.r-project.org/web/checks/check_results_mucha.html" class="external-link"><img src="https://cranchecks.info/badges/summary/mucha" alt="CRAN checks"></a></li>
-<li><a href="https://cran.r-project.org/package=mucha" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/last-month/mucha"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
