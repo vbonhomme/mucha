@@ -75,7 +75,7 @@ CMP <- function(x, y,
                                         fillvalue=fillvalue,
                                         na.rm=TRUE,
                                         ...)
-                    }
+                    }, .progress=TRUE
   )
   # combine into a multilayer SpatRaster
   res <- purrr::reduce(res, c)
