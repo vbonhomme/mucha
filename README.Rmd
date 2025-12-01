@@ -13,16 +13,14 @@ knitr::opts_chunk$set(
 
 # mucha 
 
-<!--<a href="https://vbonhomme.github.io/mucha/"><img src="man/figures/logo.png" align="right" height="139" alt="mucha website" /></a>-->
-
-<!-- badges: start -->
+<!-- badges: 
 [![License: GPL (>= 3)](https://img.shields.io/badge/license-GPL (>= 3)-blue.svg)](https://cran.r-project.org/web/licenses/GPL (>= 3))
 [![](https://www.r-pkg.org/badges/version/mucha)](https://cran.r-project.org/package=mucha)
 [![CRAN checks](https://cranchecks.info/badges/summary/mucha)](https://cran.r-project.org/web/checks/check_results_mucha.html)
 [![](http://cranlogs.r-pkg.org/badges/last-month/mucha)](https://cran.r-project.org/package=mucha)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 
-<!-- badges: end -->
+end -->
 
 ## In brief
 The primary goal of CMP package is to port the MHM and CMP softwares by Gaucherel and colleagues to R. They were originally written in Java and are no longer maintained. 

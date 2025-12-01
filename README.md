@@ -1,20 +1,13 @@
 
 # mucha
 
-[<img src="inst/figures/mucha.png" width = "175" height = "200" align="right" />]()
-
-<!-- badges: start -->
-
-[![License: GPL (\>=
-3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
+<!-- badges: 
+[![License: GPL (>= 3)](https://img.shields.io/badge/license-GPL (>= 3)-blue.svg)](https://cran.r-project.org/web/licenses/GPL (>= 3))
 [![](https://www.r-pkg.org/badges/version/mucha)](https://cran.r-project.org/package=mucha)
-[![CRAN
-checks](https://cranchecks.info/badges/summary/mucha)](https://cran.r-project.org/web/checks/check_results_mucha.html)
+[![CRAN checks](https://cranchecks.info/badges/summary/mucha)](https://cran.r-project.org/web/checks/check_results_mucha.html)
 [![](http://cranlogs.r-pkg.org/badges/last-month/mucha)](https://cran.r-project.org/package=mucha)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-
-<!-- badges: end -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+&#10;end -->
 
 ## In brief
 
@@ -83,6 +76,7 @@ Now calculate richness at three different scales.
 
 ``` r
 l_mhm <- MHM(l, window=c(3, 13, 23, 33), fun=richness)
+#>  ■■■■■■■■■■■■■■■■ 50% | ETA: 1s ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 2s 
 ```
 
 Let’s plot all monoscale maps:
