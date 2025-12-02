@@ -53,7 +53,13 @@ Typically passed to <a href="CMP.html">CMP</a>.</p>
 <span></span>
 <span><span class="fu">dist_bhat</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, bins <span class="op">=</span> <span class="fl">10</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">dist_identical</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dist_different</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">cor_pearson</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">kappa_index</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">diff_rmse</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -68,6 +74,8 @@ Typically passed to <a href="CMP.html">CMP</a>.</p>
 <span><span class="fu">p_student</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, min_nb <span class="op">=</span> <span class="fl">5</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">p_wilcoxon</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, min_nb <span class="op">=</span> <span class="fl">5</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">kappa_index_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dist_euclidean_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -111,6 +119,9 @@ otherwise a <code>NA_real</code> is returned</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>First of all, you can use built-in function,
 as long as they return a single value such as <code>cor</code>.</p><ul><li><p><code>cor_pearson</code> is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.</p></li>
+<li><p><code>kappa_index/kappa_index_cppr</code> is Cohen's Kappa</p></li>
+<li><p><code>dist_identical</code> proportion of identical value, pixel wise</p></li>
+<li><p><code>dist_different</code> proportion of different value, pixel wise</p></li>
 <li><p><code>dist_euclidean/dist_euclidean_cppr</code> euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)</p></li>
 <li><p><code>dist_manhattan/dist_manhattan_cppr</code> manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)</p></li>
 <li><p><code>dist_chebyshev/dist_chebyshev_cppr</code> Chebyshev's distance (max of absolute distances pixel-wise)</p></li>
@@ -143,6 +154,12 @@ as long as they return a single value such as <code>cor</code>.</p><ul><li><p><c
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2023918</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.08418367</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># kappa agreement</span></span></span>
+<span class="r-in"><span><span class="fu">kappa_index</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.0864745</span>
+<span class="r-in"><span><span class="fu">kappa_index_cppr</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.0864745</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># distance indices</span></span></span>
 <span class="r-in"><span><span class="fu">dist_euclidean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>

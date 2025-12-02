@@ -15,15 +15,11 @@ shannon(x, ...)
 
 shannon_evenness(x, ...)
 
-kappa_index(x, ...)
-
 contagion(x, ...)
 
 contagion_cppr(x, ...)
 
 shannon_evenness_cppr(x, ...)
-
-kappa_index_cppr(x, ...)
 
 simpson_cppr(x, ...)
 
@@ -94,10 +90,6 @@ x %>% shannon_evenness()
 #> [1] 0.5740653
 x %>% shannon_evenness_cppr()
 #> [1] 0.5740653
-x %>% kappa_index()
-#> [1] 0.01044568
-x %>% kappa_index_cppr()
-#> [1] 0.01044568
 x %>% contagion()
 #> [1] 42.00754
 x %>% contagion_cppr()

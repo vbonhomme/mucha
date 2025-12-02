@@ -70,7 +70,7 @@ qualitative images. *IEEE Transactions on Geoscience and Remote Sensing*
 
 ``` r
 library(terra)
-#> terra 1.8.80
+#> terra 1.8.86
 
 # import the first example file
 l1 <- import_example("l1.tif")

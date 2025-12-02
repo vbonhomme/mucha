@@ -15,7 +15,13 @@ dist_chebyshev(x, y, ...)
 
 dist_bhat(x, y, bins = 10, ...)
 
+dist_identical(x, y, ...)
+
+dist_different(x, y, ...)
+
 cor_pearson(x, y, ...)
+
+kappa_index(x, y, ...)
 
 diff_rmse(x, y, ...)
 
@@ -30,6 +36,8 @@ diff_cv(x, y, ...)
 p_student(x, y, min_nb = 5, ...)
 
 p_wilcoxon(x, y, min_nb = 5, ...)
+
+kappa_index_cppr(x, y, ...)
 
 dist_euclidean_cppr(x, y, ...)
 
@@ -74,6 +82,12 @@ single value such as `cor`.
 
 - `cor_pearson` is pearson correlation coefficient. Prone to NA for
   small window sizes with sd=0.
+
+- `kappa_index/kappa_index_cppr` is Cohen's Kappa
+
+- `dist_identical` proportion of identical value, pixel wise
+
+- `dist_different` proportion of different value, pixel wise
 
 - `dist_euclidean/dist_euclidean_cppr` euclidean distance (sqrt of sums
   of squared diff pixel-wise, divided by the number of valid pixels)
@@ -125,6 +139,12 @@ cor(x, y)
 #> [1] -0.2023918
 cov(x, y)
 #> [1] -0.08418367
+
+# kappa agreement
+kappa_index(x, y)
+#> [1] -0.0864745
+kappa_index_cppr(x, y)
+#> [1] -0.0864745
 
 # distance indices
 dist_euclidean(x, y)
