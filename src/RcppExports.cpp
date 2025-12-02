@@ -92,13 +92,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // kappa_index_cpp
-double kappa_index_cpp(NumericVector x);
-RcppExport SEXP _mucha_kappa_index_cpp(SEXP xSEXP) {
+double kappa_index_cpp(NumericVector x, NumericVector y);
+RcppExport SEXP _mucha_kappa_index_cpp(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(kappa_index_cpp(x));
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(kappa_index_cpp(x, y));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -122,7 +123,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_mucha_diff_rmse_cpp", (DL_FUNC) &_mucha_diff_rmse_cpp, 2},
     {"_mucha_simpson_cpp", (DL_FUNC) &_mucha_simpson_cpp, 1},
     {"_mucha_shannon_cpp", (DL_FUNC) &_mucha_shannon_cpp, 1},
-    {"_mucha_kappa_index_cpp", (DL_FUNC) &_mucha_kappa_index_cpp, 1},
+    {"_mucha_kappa_index_cpp", (DL_FUNC) &_mucha_kappa_index_cpp, 2},
     {"_mucha_shannon_evenness_cpp", (DL_FUNC) &_mucha_shannon_evenness_cpp, 1},
     {NULL, NULL, 0}
 };

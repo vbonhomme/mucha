@@ -4,58 +4,52 @@
 #include <unordered_set>
 using namespace Rcpp;
 
-//' Calculate Kappa Index (C++ implementation)
+//' Calculate Kappa Index Between Two Maps (C++ implementation)
  //'
- //' @param x Numeric vector representing raster values
- //' @return Numeric kappa index value
+ //' @param x Numeric vector representing raster values from map 1
+ //' @param y Numeric vector representing raster values from map 2
+ //' @return Numeric kappa index value (Cohen's Kappa for agreement between maps)
  //' @keywords internal
  // [[Rcpp::export]]
- double kappa_index_cpp(NumericVector x) {
+ double kappa_index_cpp(NumericVector x, NumericVector y) {
    int n = x.size();
 
-   // Handle empty input
+   // Check inputs
    if (n == 0) {
      return NA_REAL;
    }
 
-   // Calculate window size (assuming square window)
+   if (x.size() != y.size()) {
+     stop("Vectors x and y must have the same length");
+   }
+
+   // Verify square window (optional check)
    double window_size_d = std::sqrt(static_cast<double>(n));
    int window_size = static_cast<int>(std::round(window_size_d));
 
-   // Check if it's actually a square window
    if (window_size * window_size != n) {
-     return NA_REAL;
+     // Not strictly required, but good to know
    }
 
-   // Count valid (non-NA) values
+   // Count valid pairs (both non-NA)
    int n_valid = 0;
    for (int i = 0; i < n; i++) {
-     if (!NumericVector::is_na(x[i])) {
+     if (!NumericVector::is_na(x[i]) && !NumericVector::is_na(y[i])) {
        n_valid++;
      }
    }
 
-   // Need at least 2 valid pixels
+   // Need at least 2 valid pairs
    if (n_valid < 2) {
      return NA_REAL;
    }
 
-   // Reconstruct matrix from vector
-   NumericMatrix mat(window_size, window_size);
-   for (int i = 0; i < window_size; i++) {
-     for (int j = 0; j < window_size; j++) {
-       mat(i, j) = x[i * window_size + j];
-     }
-   }
-
-   // Get unique classes and build valid values vector
+   // Get all unique classes across both maps
    std::unordered_set<double> class_set;
-   std::unordered_map<double, int> class_counts;
-
    for (int i = 0; i < n; i++) {
-     if (!NumericVector::is_na(x[i])) {
+     if (!NumericVector::is_na(x[i]) && !NumericVector::is_na(y[i])) {
        class_set.insert(x[i]);
-       class_counts[x[i]]++;
+       class_set.insert(y[i]);
      }
    }
 
@@ -63,15 +57,9 @@ using namespace Rcpp;
    std::sort(classes.begin(), classes.end());
    int n_classes = classes.size();
 
-   // If only one class, kappa is 0 (no diversity)
+   // If only one class, kappa is 0 (no variability)
    if (n_classes == 1) {
      return 0.0;
-   }
-
-   // Calculate class proportions
-   std::unordered_map<double, double> class_props;
-   for (const auto& pair : class_counts) {
-     class_props[pair.first] = static_cast<double>(pair.second) / n_valid;
    }
 
    // Create class to index mapping
@@ -80,72 +68,50 @@ using namespace Rcpp;
      class_to_idx[classes[i]] = i;
    }
 
-   // Initialize adjacency matrix
-   std::vector<std::vector<int>> adj_matrix(n_classes, std::vector<int>(n_classes, 0));
-   int n_adjacencies = 0;
+   // Initialize confusion matrix (rows = x, cols = y)
+   std::vector<std::vector<int>> confusion_matrix(n_classes, std::vector<int>(n_classes, 0));
 
-   // Count horizontal adjacencies
-   for (int i = 0; i < window_size; i++) {
-     for (int j = 0; j < window_size - 1; j++) {
-       if (!NumericMatrix::is_na(mat(i, j)) && !NumericMatrix::is_na(mat(i, j + 1))) {
-         double class1 = mat(i, j);
-         double class2 = mat(i, j + 1);
-         int idx1 = class_to_idx[class1];
-         int idx2 = class_to_idx[class2];
-         adj_matrix[idx1][idx2]++;
-         n_adjacencies++;
-       }
+   // Fill confusion matrix with valid pairs
+   for (int i = 0; i < n; i++) {
+     if (!NumericVector::is_na(x[i]) && !NumericVector::is_na(y[i])) {
+       double val_x = x[i];
+       double val_y = y[i];
+       int idx_x = class_to_idx[val_x];
+       int idx_y = class_to_idx[val_y];
+       confusion_matrix[idx_x][idx_y]++;
      }
    }
 
-   // Count vertical adjacencies
-   for (int i = 0; i < window_size - 1; i++) {
-     for (int j = 0; j < window_size; j++) {
-       if (!NumericMatrix::is_na(mat(i, j)) && !NumericMatrix::is_na(mat(i + 1, j))) {
-         double class1 = mat(i, j);
-         double class2 = mat(i + 1, j);
-         int idx1 = class_to_idx[class1];
-         int idx2 = class_to_idx[class2];
-         adj_matrix[idx1][idx2]++;
-         n_adjacencies++;
-       }
-     }
-   }
-
-   // If no adjacencies found, return NA
-   if (n_adjacencies == 0) {
-     return NA_REAL;
-   }
-
-   // Calculate proportion of adjacencies (g_ik)
-   std::vector<std::vector<double>> g_ik(n_classes, std::vector<double>(n_classes, 0.0));
+   // Calculate observed agreement (Po)
+   // Proportion of diagonal elements
+   int n_diagonal = 0;
    for (int i = 0; i < n_classes; i++) {
-     for (int j = 0; j < n_classes; j++) {
-       g_ik[i][j] = static_cast<double>(adj_matrix[i][j]) / n_adjacencies;
-     }
+     n_diagonal += confusion_matrix[i][i];
    }
+   double Po = static_cast<double>(n_diagonal) / n_valid;
 
-   // Calculate observed proportion of like adjacencies (Po)
-   double Po = 0.0;
-   for (int i = 0; i < n_classes; i++) {
-     Po += g_ik[i][i];
-   }
-
-   // Calculate expected proportion of like adjacencies (Pe)
+   // Calculate expected agreement by chance (Pe)
+   // Pe = sum of (marginal_x / n) * (marginal_y / n)
    double Pe = 0.0;
    for (int i = 0; i < n_classes; i++) {
-     double p_i = class_props[classes[i]];
-
-     // Sum of g_ik across all columns for this row
-     double sum_g_ik = 0.0;
-     for (int k = 0; k < n_classes; k++) {
-       sum_g_ik += g_ik[i][k];
+     // Marginal sum for row i (map x)
+     int marginal_x = 0;
+     for (int j = 0; j < n_classes; j++) {
+       marginal_x += confusion_matrix[i][j];
      }
 
-     Pe += p_i * sum_g_ik;
+     // Marginal sum for column i (map y)
+     int marginal_y = 0;
+     for (int j = 0; j < n_classes; j++) {
+       marginal_y += confusion_matrix[j][i];
+     }
+
+     double p_x = static_cast<double>(marginal_x) / n_valid;
+     double p_y = static_cast<double>(marginal_y) / n_valid;
+     Pe += p_x * p_y;
    }
 
-   // Calculate Kappa index
+   // Calculate Cohen's Kappa
    // Kappa = (Po - Pe) / (1 - Pe)
    if (Pe >= 1.0) {
      // Avoid division by zero

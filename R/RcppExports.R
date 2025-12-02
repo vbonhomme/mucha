@@ -35,11 +35,11 @@ shannon_cpp <- function(x) {
     .Call(`_mucha_shannon_cpp`, x)
 }
 
-#' Calculate Kappa Index (C++ implementation)
+#' Calculate Kappa Index Between Two Maps (C++ implementation)
 NULL
 
-kappa_index_cpp <- function(x) {
-    .Call(`_mucha_kappa_index_cpp`, x)
+kappa_index_cpp <- function(x, y) {
+    .Call(`_mucha_kappa_index_cpp`, x, y)
 }
 
 #' Calculate Shannon Evenness Index (C++ implementation)

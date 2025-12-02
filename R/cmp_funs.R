@@ -18,6 +18,9 @@
 #' as long as they return a single value such as `cor`.
 #'
 #' * `cor_pearson` is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.
+#' * `kappa_index/kappa_index_cppr` is Cohen's Kappa
+#' * `dist_identical` proportion of identical value, pixel wise
+#' * `dist_different` proportion of different value, pixel wise
 #' * `dist_euclidean/dist_euclidean_cppr` euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
 #' * `dist_manhattan/dist_manhattan_cppr` manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
 #' * `dist_chebyshev/dist_chebyshev_cppr` Chebyshev's distance (max of absolute distances pixel-wise)
@@ -45,6 +48,10 @@
 #' # built in functions
 #' cor(x, y)
 #' cov(x, y)
+#'
+#' # kappa agreement
+#' kappa_index(x, y)
+#' kappa_index_cppr(x, y)
 #'
 #' # distance indices
 #' dist_euclidean(x, y)
@@ -130,7 +137,23 @@ dist_bhat <- function(x, y, bins = 10, ...) {
   -log(bc)
 }
 
-# cor ------
+#' @rdname cmp_funs
+#' @export
+dist_identical <- function(x, y, ...) {
+  valid <- !is.na(x) & !is.na(y)
+  if (sum(valid) == 0) return(NA)
+  sum(x[valid] == y[valid])/sum(valid)
+}
+
+#' @rdname cmp_funs
+#' @export
+dist_different <- function(x, y, ...) {
+  valid <- !is.na(x) & !is.na(y)
+  if (sum(valid) == 0) return(NA)
+  sum(x[valid] != y[valid])/sum(valid)
+}
+
+# cor and agreement ------
 
 #' @name cmp_funs
 #' @export
@@ -143,6 +166,90 @@ cor_pearson <- function(x, y, ...) {
              method="pearson", use = "complete")
   )
 }
+
+#' @rdname cmp_funs
+#' @export
+kappa_index <- function(x, y, ...) {
+  # x and y are vectors from two different maps/focal windows
+  #w e need to claculate agreement but first we have to reconstruct
+  # a confusion matrix (two)
+
+  # we assume square windows
+  window_size <- sqrt(length(x))
+  if (window_size != as.integer(window_size)) {
+    stop("Vector length must be a perfect square for square windows")
+  }
+
+  # rebuild the matrices
+  mat_x <- matrix(x, nrow = window_size, ncol = window_size, byrow = TRUE)
+  mat_y <- matrix(y, nrow = window_size, ncol = window_size, byrow = TRUE)
+
+  # handle na as we do everywehere
+  valid_idx <- !is.na(x) & !is.na(y)
+  x_valid <- x[valid_idx]
+  y_valid <- y[valid_idx]
+
+  # only calc when 2 valid pairs
+  if (length(x_valid) < 2) {
+    return(NA_real_)
+  }
+
+  # unique levels
+  classes <- sort(unique(c(x_valid, y_valid)))
+  n_classes <- length(classes)
+
+  # single class, kappa=0
+  if (n_classes == 1) {
+    return(0)
+  }
+
+  # we finally rebuild confusion
+  # rows = map x, columns = map on y
+  confusion_matrix <- matrix(0, nrow = n_classes, ncol = n_classes)
+  rownames(confusion_matrix) <- colnames(confusion_matrix) <- as.character(classes)
+
+  # and we fill
+  for (i in 1:length(x_valid)) {
+    class_x <- as.character(x_valid[i])
+    class_y <- as.character(y_valid[i])
+    confusion_matrix[class_x, class_y] <- confusion_matrix[class_x, class_y] + 1
+  }
+
+  # nb of valid pairs
+  n_total <- sum(confusion_matrix)
+
+  # observed agreement (Po)
+  # proportion of diagonal elements (where both maps agree)
+  Po <- 0
+  for (i in 1:n_classes) {
+    class_name <- as.character(classes[i])
+    Po <- Po + confusion_matrix[class_name, class_name]
+  }
+  Po <- Po / n_total
+
+  # expected agreement by chance (Pe)
+  # for each class: (marginal_x / n) * (marginal_y / n)
+  Pe <- 0
+  for (i in 1:n_classes) {
+    class_name <- as.character(classes[i])
+    # Marginal probabilities
+    p_x <- sum(confusion_matrix[class_name, ]) / n_total
+    p_y <- sum(confusion_matrix[, class_name]) / n_total
+    Pe <- Pe + (p_x * p_y)
+  }
+
+  # finally cohen kappa
+  # kappa = (Po - Pe) / (1 - Pe)
+  if (Pe >= 1) {
+    # division by zero case
+    return(0)
+  }
+
+  kappa <- (Po - Pe) / (1 - Pe)
+
+  return(as.numeric(kappa))
+}
+
 
 # difference indices ----
 
@@ -207,6 +314,12 @@ p_wilcoxon <- function(x, y, min_nb=5, ...){
 }
 
 # cpp ----
+
+#' @rdname cmp_funs
+#' @export
+kappa_index_cppr <- function(x,y,  ...) {
+  kappa_index_cpp(x, y)
+}
 
 #' @rdname cmp_funs
 #' @export

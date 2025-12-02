@@ -6,11 +6,9 @@
 \alias{simpson}
 \alias{shannon}
 \alias{shannon_evenness}
-\alias{kappa_index}
 \alias{contagion}
 \alias{contagion_cppr}
 \alias{shannon_evenness_cppr}
-\alias{kappa_index_cppr}
 \alias{simpson_cppr}
 \alias{shannon_cppr}
 \title{Summary metrics on a single raster}
@@ -23,15 +21,11 @@ shannon(x, ...)
 
 shannon_evenness(x, ...)
 
-kappa_index(x, ...)
-
 contagion(x, ...)
 
 contagion_cppr(x, ...)
 
 shannon_evenness_cppr(x, ...)
-
-kappa_index_cppr(x, ...)
 
 simpson_cppr(x, ...)
 
@@ -78,8 +72,6 @@ x \%>\% shannon()
 x \%>\% shannon_cppr()
 x \%>\% shannon_evenness()
 x \%>\% shannon_evenness_cppr()
-x \%>\% kappa_index()
-x \%>\% kappa_index_cppr()
 x \%>\% contagion()
 x \%>\% contagion_cppr()
 }
