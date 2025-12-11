@@ -73,9 +73,9 @@
 <div class="section level2">
 <h2 id="in-brief">In brief<a class="anchor" aria-label="anchor" href="#in-brief"></a>
 </h2>
-<p>The primary goal of CMP package is to port the MHM and CMP softwares by Gaucherel and colleagues to R. They were originally written in Java and are no longer maintained.</p>
+<p>The primary goal of CMP package is to port the MHM and CMP softwares by Gaucherel and colleagues to R. They were originally written in Java and are no longer maintained (but see <a href="http://amap-dev.cirad.fr/projects/mhm" class="external-link">MHM</a> and <a href="http://amap-dev.cirad.fr/projects/cmp" class="external-link">CMP</a> legacy pages).</p>
 <p>Both MHM and CMP approaches propose a methodology to capture the local and scaling variations of landscapes, or anything that can be turned into rasters.</p>
-<p>MHM works on a single raster, while CMP works on a pair of rasters. Both use moving windows and summary functions to end up with several rasters (aka the monoscale maps) one per window size, that are eventually combined, using a custom function, and summarized using a profile plot.</p>
+<p>MHM works on a single raster, while CMP works on a pair of rasters. Both use moving windows and summary functions to end up with several rasters (aka the monoscale maps) one per window size, that are eventually combined, using a custom function to obtain a multiscale map, and summarized using a profile plot.</p>
 <p>A graphical user interface (in shiny) will probably be released soon, so that people not proficient in R still could do some MHM and CMP analyses, just as for original softwares.</p>
 </div>
 <div class="section level2">
@@ -107,28 +107,38 @@
 <span><span class="co">#&gt; &gt;&gt;&gt; with following (9) classes: 1, 4, 9, 11, 12, 13, 14, 15, 16</span></span>
 <span><span class="co">#&gt; &gt;&gt;&gt; 13987 NA (72.8%) among 19200 values</span></span>
 <span></span>
-<span><span class="co"># plot it (mplot is more appropriate than vanilla plot)</span></span>
-<span><span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># plot it -- you can also use terra::plot</span></span>
+<span><span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span><span class="va">l</span>, title <span class="op">=</span> <span class="st">"Kottoli landscape"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
-<p>Now calculate richness at three different scales.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">l_mhm</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/MHM.html">MHM</a></span><span class="op">(</span><span class="va">l</span>, window<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span>, <span class="fl">23</span>, <span class="fl">33</span><span class="op">)</span>, fun<span class="op">=</span><span class="va">richness</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  ■■■■■■■■■■■■■■■■ 50% | ETA: 1s ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 2s </span></span></code></pre></div>
-<p>Let’s plot all monoscale maps:</p>
+<p>Now calculate contagion at three different scales. We use the cpp version of contagion to speed up calculations.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#&gt;  ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s </span></span></code></pre></div>
+<p>Now let’s plot all monoscale maps:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span><span class="va">l_mhm</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span><span class="va">l_mhm</span>, multi_title <span class="op">=</span> <span class="st">"Monoscale maps (contagion)"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
-<p>Finally, we calculate a composite map and a profile plot:</p>
+<p>Finally, we calculate and show a multiscale map and a profile plot:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/app.html" class="external-link">app</a></span><span class="op">(</span><span class="va">l_mhm</span>, <span class="va">mean</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/app.html" class="external-link">app</a></span><span class="op">(</span><span class="va">l_mhm</span>, <span class="va">mean</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span>multi_title <span class="op">=</span> <span class="st">"Multiscale map (averaged contagion)"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/ms_profile.html">ms_profile</a></span><span class="op">(</span><span class="va">l_mhm</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-2.png" width="100%"></p>
 <p>CMP works pretty much the same but with two landscapes.</p>
-<p>The vignette proposes a much detailed deep into MHM and CMP. You can have a look to it with:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"intro"</span>, <span class="st">"mucha"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># we import another one landscape</span></span>
+<span><span class="va">l2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_example.html">import_example</a></span><span class="op">(</span><span class="st">"l2.tif"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/raster_helpers.html">raster_resample</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span></span>
+<span><span class="co"># here we calculate an euclidean distance between the two</span></span>
+<span><span class="va">l12_cmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/CMP.html">CMP</a></span><span class="op">(</span><span class="va">l</span>, <span class="va">l2</span>, fun<span class="op">=</span><span class="va">dist_euclidean_cppr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plots now</span></span>
+<span><span class="va">l12_cmp</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span>multi_title <span class="op">=</span> <span class="st">"Monoscale maps (euclidean distance)"</span><span class="op">)</span>  <span class="co"># monoscale maps</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l12_cmp</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/app.html" class="external-link">app</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/p.html">p</a></span><span class="op">(</span>multi_title <span class="op">=</span> <span class="st">"Multiscale maps (averaged)"</span><span class="op">)</span> <span class="co"># multiscale map</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-2.png" width="100%"></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">l12_cmp</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/ms_profile.html">ms_profile</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># profile plot</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-3.png" width="100%"></p>
 <p>An html version of this vignette and of the doc lives <a href="https://vbonhomme.github.io/mucha/" class="uri">https://vbonhomme.github.io/mucha/</a> Feel free to report bugs and suggest features on the github repo <a href="https://github.com/vbonhomme/mucha" class="external-link uri">https://github.com/vbonhomme/mucha</a></p>
 </div>
 </div>
