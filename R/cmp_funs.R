@@ -17,10 +17,13 @@
 #' First of all, you can use built-in function,
 #' as long as they return a single value such as `cor`.
 #'
-#' * `cor_pearson` is pearson correlation coefficient. Prone to NA for small window sizes with sd=0.
+#' * `cor_pearson` is pearson correlation coefficient. Note than for uniform window(s) this will return 1, not NA. See below.
+#' * `cor_pearson_uniform_equals_NA` is same as above but return NA when `sd=0` for one or two windows having uniform values,
+#' which is likely to happen for small sample sizes.
 #' * `kappa_index/kappa_index_cppr` is Cohen's Kappa
 #' * `dist_identical` proportion of identical value, pixel wise
 #' * `dist_different` proportion of different value, pixel wise
+#' * `dist_diff` (signed) difference, pixel wise
 #' * `dist_euclidean/dist_euclidean_cppr` euclidean distance (sqrt of sums of squared diff pixel-wise, divided by the number of valid pixels)
 #' * `dist_manhattan/dist_manhattan_cppr` manhattan distance (sum of absolute distances pixel-wise, , divided by the number of valid pixels)
 #' * `dist_chebyshev/dist_chebyshev_cppr` Chebyshev's distance (max of absolute distances pixel-wise)
@@ -153,19 +156,57 @@ dist_different <- function(x, y, ...) {
   sum(x[valid] != y[valid])/sum(valid)
 }
 
+# bare difference
+#' @rdname cmp_funs
+#' @export
+dist_diff <- function(x, y, ...) {
+  valid <- !is.na(x) & !is.na(y)
+  if (sum(valid) == 0) return(NA)
+  sum(x[valid] - y[valid])/sum(valid)
+}
+
 # cor and agreement ------
 
 #' @name cmp_funs
 #' @export
 cor_pearson <- function(x, y, ...) {
   valid <- !is.na(x) & !is.na(y)
-  if (sum(valid) == 0) return(NA_real_)
+  if (sum(valid) < 2) return(NA_real_)
+
+  x <- x[valid]
+  y <- y[valid]
+
+  # case when both x and y are uniform
+  # AND have diff values
+  # if (unif_equals_1){
+  if ((stats::sd(x)==0 | stats::sd(y)==0)){
+    return(1)
+  }
+  # }
+
   # suppress warning "the standard deviation is zero"
   suppressWarnings(
-    stats::cor(x[valid], y[valid],
-             method="pearson", use = "complete")
+    stats::cor(x, y,
+               method="pearson", use = "complete")
   )
 }
+
+#' @name cmp_funs
+#' @export
+cor_pearson_uniform_equals_NA <- function(x, y, ...) {
+  valid <- !is.na(x) & !is.na(y)
+  if (sum(valid) < 2) return(NA_real_)
+
+  x <- x[valid]
+  y <- y[valid]
+
+  # suppress warning "the standard deviation is zero"
+  suppressWarnings(
+    stats::cor(x, y,
+               method="pearson", use = "complete")
+  )
+}
+
 
 #' @rdname cmp_funs
 #' @export

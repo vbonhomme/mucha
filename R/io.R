@@ -147,7 +147,9 @@ import_example <- function(name){
   } else {
     # if provided, try to import
     system.file(paste0("extdata/", name), package = "mucha") %>%
-      import_raster()
+      import_raster() -> out
+    names(out) <- "" # overcome the 'lyr.1' ugly naming
+    out
   }
 }
 

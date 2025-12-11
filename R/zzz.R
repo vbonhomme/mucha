@@ -27,6 +27,7 @@ NULL
 #' @importFrom graphics points
 #' @importFrom graphics segments
 #' @importFrom graphics layout
+#' @importFrom graphics mtext
 #' @importFrom grDevices hcl.colors
 
 # globalVariables -----
