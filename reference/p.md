@@ -8,7 +8,16 @@ plot. The main benefit being sharing the legend across monoscale maps.
 ## Usage
 
 ``` r
-p(x, palette = "viridis", asp = 1, ncol = NULL, title, ...)
+p(
+  x,
+  palette = "Viridis",
+  asp = 1,
+  ncol = NULL,
+  title,
+  multi_title,
+  global_range = TRUE,
+  ...
+)
 ```
 
 ## Arguments
@@ -33,7 +42,16 @@ p(x, palette = "viridis", asp = 1, ncol = NULL, title, ...)
 
 - title:
 
-  for the plot, if missing use `names(x)`
+  for each plot, if missing use `names(x)`
+
+- multi_title:
+
+  for the general plot (eg when more than one layer)
+
+- global_range:
+
+  logical, default to `TRUE`, whether to use a global range for all
+  layers
 
 - ...:
 
@@ -45,10 +63,25 @@ p(x, palette = "viridis", asp = 1, ncol = NULL, title, ...)
 # first calculate a small and simple MHM
 l <- import_example("l1.tif") %>%
 raster_resample(0.1) %>%
-MHM(window=c(3, 13, 23, 33), fun=richness)
+MHM(window=c(3, 13, 23, 33), fun=shannon)
 
-# then let the fun begins
-p(l) # compare with plot(l)
+# global range or not
+p(l) # by default global_range is TRUE
 
-p(l, palette = "RdYlBu", ncol=1)
+p(l, global_range=FALSE) # each mono map has its scale
+
+# change palette
+p(l, palette = "RdYlBu", ncol=1) # change the color palette for one of hcl.pals()
+
+
+# manage title(s)
+p(l, multi_title="monoscale maps")
+
+p(l, title=paste0("window size ", names(l)), multi_title="monoscale maps")
+
+
+# change aspect
+p(l, ncol=4)
+
+p(l, ncol=1)
 ```

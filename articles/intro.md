@@ -308,7 +308,6 @@ w <- window_linearpixels(l1_lite, steps = 6)
 l1_mhm <- MHM(l1_lite, 
               fun=richness,  
               window = w)
-#>  ■■■■■■■■■■■■■■■■                  50% |  ETA:  1s
 ```
 
 ### Monoscale maps, multiscale map and profile plot
