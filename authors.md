@@ -3,7 +3,8 @@
 ## Authors
 
 - **Vincent Bonhomme**. Author, maintainer.
-  [](https://orcid.org/0000-0002-2742-6349)
+  [](https://orcid.org/0000-0002-2742-6349)  
+  https://www.vincentbonhomme.fr
 
 - **Cedric Gaucherel**. Author.
   [](https://orcid.org/0000-0002-4521-8914)
