@@ -75,13 +75,13 @@ l_mhm <- MHM(l, window=c(3, 13, 23, 33), fun=contagion_cppr)
 Now let's plot all monoscale maps:
 
 ```{r}
-p(l_mhm, "Monoscale maps (contagion)")
+p(l_mhm, multi_title = "Monoscale maps (contagion)")
 ```
 
 Finally, we calculate and show a multiscale map and a profile plot:
 
 ```{r}
-app(l_mhm, mean) %>% p("Multiscale map (averaged contagion)")
+app(l_mhm, mean) %>% p(multi_title = "Multiscale map (averaged contagion)")
 ms_profile(l_mhm)
 ```
 
@@ -94,8 +94,8 @@ l2 <- import_example("l2.tif") %>% raster_resample(0.2)
 l12_cmp <- CMP(l, l2, fun=dist_euclidean_cppr)
 
 # plots now
-l12_cmp %>% p("Monoscale maps (euclidean distance)")  # monoscale maps
-l12_cmp %>% app(mean) %>% p("Multiscale maps (averaged)) # multiscale map
+l12_cmp %>% p(multi_title = "Monoscale maps (euclidean distance)")  # monoscale maps
+l12_cmp %>% app(mean) %>% p(multi_title = "Multiscale maps (averaged)") # multiscale map
 l12_cmp %>% ms_profile() # profile plot
 
 ```

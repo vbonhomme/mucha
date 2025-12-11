@@ -101,7 +101,7 @@ p <- function(x, palette = "Viridis", asp=1, ncol = NULL,
 
     # if a multi_title is provided, then add it
     if (!missing(multi_title))
-      graphics::mtext(multi_title, outer=TRUE)
+      graphics::mtext(multi_title, line=1, outer=TRUE)
 
   }
 

@@ -13,7 +13,9 @@
 
 The primary goal of CMP package is to port the MHM and CMP softwares by
 Gaucherel and colleagues to R. They were originally written in Java and
-are no longer maintained.
+are no longer maintained (but see
+[MHM](http://amap-dev.cirad.fr/projects/mhm) and
+[CMP](http://amap-dev.cirad.fr/projects/cmp) legacy pages).
 
 Both MHM and CMP approaches propose a methodology to capture the local
 and scaling variations of landscapes, or anything that can be turned
@@ -22,7 +24,8 @@ into rasters.
 MHM works on a single raster, while CMP works on a pair of rasters. Both
 use moving windows and summary functions to end up with several rasters
 (aka the monoscale maps) one per window size, that are eventually
-combined, using a custom function, and summarized using a profile plot.
+combined, using a custom function to obtain a multiscale map, and
+summarized using a profile plot.
 
 A graphical user interface (in shiny) will probably be released soon, so
 that people not proficient in R still could do some MHM and CMP
@@ -66,31 +69,29 @@ raster_summary(l)
 #> >>> with following (9) classes: 1, 4, 9, 11, 12, 13, 14, 15, 16
 #> >>> 13987 NA (72.8%) among 19200 values
 
-# plot it (mplot is more appropriate than vanilla plot)
-p(l)
+# plot it -- you can also use terra::plot
+p(l, title = "Kottoli landscape")
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
-Now calculate richness at three different scales.
+Now calculate contagion at three different scales. We use the cpp
+version of contagion to speed up calculations.
+
+    #>  ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 1s 
+
+Now let’s plot all monoscale maps:
 
 ``` r
-l_mhm <- MHM(l, window=c(3, 13, 23, 33), fun=richness)
-#>  ■■■■■■■■■■■■■■■■ 50% | ETA: 1s ■■■■■■■■■■■■■■■■■■■■■■■ 75% | ETA: 2s 
-```
-
-Let’s plot all monoscale maps:
-
-``` r
-p(l_mhm)
+p(l_mhm, multi_title = "Monoscale maps (contagion)")
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
-Finally, we calculate a composite map and a profile plot:
+Finally, we calculate and show a multiscale map and a profile plot:
 
 ``` r
-app(l_mhm, mean) %>% p()
+app(l_mhm, mean) %>% p(multi_title = "Multiscale map (averaged contagion)")
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
@@ -103,12 +104,29 @@ ms_profile(l_mhm)
 
 CMP works pretty much the same but with two landscapes.
 
-The vignette proposes a much detailed deep into MHM and CMP. You can
-have a look to it with:
+``` r
+# we import another one landscape
+l2 <- import_example("l2.tif") %>% raster_resample(0.2)
+# here we calculate an euclidean distance between the two
+l12_cmp <- CMP(l, l2, fun=dist_euclidean_cppr)
+
+# plots now
+l12_cmp %>% p(multi_title = "Monoscale maps (euclidean distance)")  # monoscale maps
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ``` r
-vignette("intro", "mucha")
+l12_cmp %>% app(mean) %>% p(multi_title = "Multiscale maps (averaged)") # multiscale map
 ```
+
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" />
+
+``` r
+l12_cmp %>% ms_profile() # profile plot
+```
+
+<img src="man/figures/README-unnamed-chunk-5-3.png" width="100%" />
 
 An html version of this vignette and of the doc lives
 <https://vbonhomme.github.io/mucha/> Feel free to report bugs and
