@@ -4,7 +4,7 @@ Title: MUltiscale Comparison and Heterogeneity Analyses
 Version: 0.1.0
 Authors@R: c(
   person("Vincent", "Bonhomme", email = "bonhomme.vincent@gmail.com",
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2742-6349")),
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2742-6349", URL = "https://www.vincentbonhomme.fr")),
   person("Cedric", "Gaucherel", 
     role = c("aut"), comment = c(ORCID = "0000-0002-4521-8914")))
 Maintainer: Vincent Bonhomme <bonhomme.vincent@gmail.com>
